@@ -15,8 +15,8 @@
 
 <body>
     <form class="" id="getTime">
-        <input type="time" step="1" id="startTime" placeholder="start time" />
-        <input type="time" step="1" id="endTime" placeholder="end time" />
+        <input type="time" step="1" id="startTime" />
+        <input type="time" step="1" id="endTime" />
         <input type="submit" value="Submit Form" />
     </form>
 
@@ -48,19 +48,19 @@
                 if (result.code === 200) {
                     console.log(result.data);
                     let str = '';
-                    result.data.forEach(element => {
+                    result.data.forEach((element, index, array) => {
                         console.log(element);
-                        str += element + ', ';
+                        str += index === array.length - 1 ? element : element + ', ';
                     });
                     magicNumber.append(str);
                 } else if (result.code === 400) {
                     magicNumber.append(result.message);
                 }
-                else if(result.error) {
+                else {
                     alert(result.error.message)
                 }
             } else {
-                alert('please enter start date/end date');
+                alert('please enter start time/end time');
             }
         }
     </script>
