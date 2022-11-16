@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <form class="" id="getTime">
+        <input type="time" step="1" id="startTime" placeholder="start time" />
+        <input type="time" step="1" id="endTime" placeholder="end time" />
+        <input type="submit" value="Submit Form" />
+    </form>
+
+    <h1 id="magicNumber"> The magicNumber is -</h1>
+    <p id="printNumber"></p>
+    <script>
+        const form = document.getElementById('getTime')
+        form.addEventListener('submit', login)
+        async function login(event) {
+            event.preventDefault();
+            let magicNumber = document.getElementById('printNumber');
+            magicNumber.innerHTML = '';
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            if (startTime && endTime) {
+
+                let result = await fetch('/getTimer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        startTime,
+                        endTime
+                    })
+                });
+                result = await result.json();
+
+                if (result.code === 200) {
+                    console.log(result.data);
+                    let str = '';
+                    result.data.forEach(element => {
+                        console.log(element);
+                        str += element + ', ';
+                    });
+                    magicNumber.append(str);
+                } else if (result.code === 400) {
+                    magicNumber.append(result.message);
+                }
+                else if(result.error) {
+                    alert(result.error.message)
+                }
+            } else {
+                alert('please enter start date/end date');
+            }
+        }
+    </script>
+</body>
+
+</html>

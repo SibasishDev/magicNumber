@@ -1,0 +1,22 @@
+{
+  "name": "auxano",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.2",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "path": "^0.12.7"
+  },
+  "author": "sibasish",
+  "license": "ISC",
+  "description": ""
+}
