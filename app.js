@@ -40,10 +40,10 @@ app.get("/", (req, res) => {
 app.post("/getTimer", async function (req, res, next) {
     try {
         let { startTime, endTime } = req.body;
-
+         if(startTime > endTime) throw createError.BadRequest('star time should be less than end time ');
         let regex = /(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)/gm;
-
-        if (!startTime?.trim().match(regex) && !endTime?.trim().match(regex)) throw createError.BadRequest('time formart does not match');
+        
+        if (!startTime?.trim().match(regex) || !endTime?.trim().match(regex)) throw createError.BadRequest('time formart does not match');
 
         let magicalTimearr = await printMagicalTime(startTime.toString(), endTime.toString());
 
